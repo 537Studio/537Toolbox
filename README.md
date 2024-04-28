@@ -18,7 +18,7 @@ tools：用于存放其它小工具
 
 fonts：用于存放TrueType字体文件
 
-include：一些需要使用的头文件（不包含EasyX图形库文件）
+include：一些需要使用的头文件
 
 #### 开发环境
 
