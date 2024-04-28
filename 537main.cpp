@@ -1,12 +1,18 @@
 #include <windows.h>
 #include <ShellAPI.h>
 #include <string>
-
+#include <mmsystem.h>
+#include "include/about.h"
+#include "include/card.h"
+#include "include/music.h"
+#include "include/settings.h"
+#pragma comment(lib, "winmm.lib") // 使用音乐播放库需要链接-lwinmm 
 
 NOTIFYICONDATA nid;
 HMENU hPopupMenu;
 
 char AppClassName[] = "537Toolbox";
+
 HINSTANCE g_hInst;
 HWND g_hMainWindow;
 HBITMAP hBitmap;
@@ -17,6 +23,10 @@ int WIN_WIDTH = 800,WIN_HEIGHT = 600;
 int screenWidth = GetSystemMetrics(SM_CXSCREEN);//屏幕宽 
 int screenHeight = GetSystemMetrics(SM_CYSCREEN);//屏幕高 
 
+// 计算窗口左上角坐标使其位于屏幕中心
+int init_x=(screenWidth-WIN_WIDTH)/2;
+int init_y=(screenHeight-WIN_HEIGHT)/2;
+    
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     	case WM_SIZE:
@@ -46,19 +56,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             hPopupMenu = CreatePopupMenu();
             AppendMenu(hPopupMenu, MF_STRING, 1, "打开");
             AppendMenu(hPopupMenu, MF_SEPARATOR, 0, NULL);
-            AppendMenu(hPopupMenu, MF_STRING, 2, "首页");
-            AppendMenu(hPopupMenu, MF_STRING, 3, "系统");
-            AppendMenu(hPopupMenu, MF_STRING, 4, "网络");
-            AppendMenu(hPopupMenu, MF_STRING, 5, "存储");
-            AppendMenu(hPopupMenu, MF_STRING, 6, "文件");
-            AppendMenu(hPopupMenu, MF_STRING, 7, "更多");
+            AppendMenu(hPopupMenu, MF_STRING, 2, "帮助");
+            AppendMenu(hPopupMenu, MF_STRING, 3, "更新");
+            AppendMenu(hPopupMenu, MF_STRING, 4, "关于");
             AppendMenu(hPopupMenu, MF_SEPARATOR, 0, NULL);
-            AppendMenu(hPopupMenu, MF_STRING, 8, "帮助");
-            AppendMenu(hPopupMenu, MF_STRING, 9, "更新");
-            AppendMenu(hPopupMenu, MF_STRING, 10, "关于");
-            AppendMenu(hPopupMenu, MF_STRING, 11, "退出");
+            AppendMenu(hPopupMenu, MF_STRING, 5, "退出");
             // 加载软件图标
-            hBitmap = LoadBitmap(GetModuleHandle(NULL),"A");
+            hBitmap = LoadBitmap(g_hInst,"A");
             break;
         case WM_COMMAND:
         	switch(LOWORD(wParam)){
@@ -68,45 +72,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					UpdateWindow(g_hMainWindow);
                 	break;
                 case 2:
-                	//打开首页
-                	MessageBox(hwnd, "按下了托盘“首页”按钮", "提示", MB_OK+64);
-                	break;
-				case 3:
-					//打开系统面板
-					MessageBox(hwnd, "按下了托盘“系统”按钮", "提示", MB_OK+64);
-					break;
-				case 4:
-					//打开网络面板
-					MessageBox(hwnd, "按下了托盘“网络”按钮", "提示", MB_OK+64);
-					break;
-				case 5:
-					//打开存储面板	 
-					MessageBox(hwnd, "按下了托盘“存储”按钮", "提示", MB_OK+64);
-					break;
-				case 6:
-					//打开文件面板
-					MessageBox(hwnd, "按下了托盘“文件”按钮", "提示", MB_OK+64);
-					break;
-				case 7:
-					//打开更多面板
-					MessageBox(hwnd, "按下了托盘“更多”按钮", "提示", MB_OK+64);
-					break;
-				case 8:
-					//打开帮助面板
+                	//打开帮助面板
 					ShellExecute(hwnd,"open","https://www.537studio.com/help",NULL,NULL,SW_SHOWNORMAL);
 					break;
-				case 9:
+					/*
+                	//打开首页
+                	mciSendString("play audio/537Welcome.mp3",NULL,0,hwnd); //播放音乐  
+                	break;
+                	*/
+				case 3:
 					//打开更新窗口 
 					ShellExecute(hwnd,"open","update.exe",NULL,NULL,SW_SHOWNORMAL);
 					break;
-				case 10:
+				case 4:
 					//打开关于窗口 
 					ShellAbout(hwnd, "537工具箱", "537工具箱	版本1.0(Beta)\n537工作室版权所有。该版本为内测版本，非内部人员请勿使用。", NULL);
 					break;
-				case 11:
-                	// 退出操作
+				case 5:
+					// 退出操作
                 	DestroyWindow(hwnd);
-                default:
+                	break;
+				default:
                 	break;
         	}
             break;
@@ -125,7 +111,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             		break;
         		case WM_LBUTTONDOWN:
             		// 单击托盘图标打开软件
-            		MessageBox(hwnd, "点击了托盘图标", "提示", MB_OK+64);
+            		ShowWindow(g_hMainWindow,1);
+					UpdateWindow(g_hMainWindow);
            		 	break;
            		}
             	break;
@@ -153,7 +140,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 Rectangle(hdc, 500, 200, 700, 400);
                 
                 // 创建字体
-    			HFONT hFont = CreateFont(300, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "analogue.ttf");
+    			HFONT hFont = CreateFont(30, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "fonts/analogue.ttf");
     			SelectObject(hdc, hFont);
 				
     			// 设置文本颜色
@@ -161,12 +148,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
     			// 显示文本
     			TextOut(hdc, 100, 100, "Hello world!", 12);
+    			
+    			
             	// 释放资源
     			DeleteObject(hFont);
     			ReleaseDC(NULL, hdc);
                 EndPaint(hwnd, &ps);
             }
             break;
+        case WM_LBUTTONDOWN:
+        	MessageBox(hwnd,"按下了鼠标左键","提示",MB_OK+64);
+        	break;
+        case WM_MOUSEMOVE:
+        	/* TODO (Sean537#9#): 待添加检测鼠标指针位置 */
+        	mouse.x=0;
+			mouse.y=0;
+        	break;
         case WM_DESTROY:
             // 移除系统托盘图标
             Shell_NotifyIcon(NIM_DELETE, &nid);
@@ -193,7 +190,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	WndClassEx.hIcon           = LoadIcon(hInstance, "A");
 	WndClassEx.hCursor         = LoadCursor(hInstance, IDC_ARROW);
 	WndClassEx.hbrBackground   = (HBRUSH)(COLOR_3DSHADOW+1);
-	WndClassEx.lpszClassName   = g_szAppName;
+	WndClassEx.lpszClassName   = AppClassName;
 	WndClassEx.hIconSm         = LoadIcon(hInstance,"A");
 	
 	if(!RegisterClassEx(&WndClassEx)) {
@@ -201,9 +198,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return -1;
 	}
 
-    // 计算窗口左上角坐标使其位于屏幕中心
-    int init_x = (screenWidth - WIN_WIDTH) / 2;
-    int init_y = (screenHeight - WIN_HEIGHT) / 2;
+    
     
 	g_hMainWindow = CreateWindowEx(WS_EX_APPWINDOW,AppClassName,"537工具箱",WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
 		init_x,
@@ -219,14 +214,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	ShowWindow(g_hMainWindow, nCmdShow);
 	UpdateWindow(g_hMainWindow);
-	/*
-	
-    HWND hwnd = CreateWindow("Win32Window", "Win32 Window", WS_OVERLAPPEDWINDOW, 100, 100, 800, 600, NULL, NULL, hInstance, NULL);
-
-    // 显示窗口
-    ShowWindow(hwnd, nCmdShow);
-    UpdateWindow(hwnd);
-*/
     // 消息循环
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {

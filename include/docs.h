@@ -10,35 +10,26 @@ Windows GDI£¨Í¼ÐÎÉè±¸½Ó¿Ú£©Ìá¹©ÁË·á¸»µÄº¯ÊýÓÃÓÚ»æÖÆ¸÷ÖÖÍ¼ÐÎºÍÏßÌõ¡£ÒÔÏÂÊÇÒ»Ð©³£Ó
 MoveToEx(hdc, x1, y1, NULL): ½«»æÍ¼µãÒÆ¶¯µ½Ö¸¶¨Î»ÖÃ¡£
 LineTo(hdc, x2, y2): ´Óµ±Ç°»æÍ¼µã»æÖÆÒ»ÌõÖ±Ïßµ½Ö¸¶¨Î»ÖÃ¡£
 »æÖÆ¾ØÐÎ£º
-
 Rectangle(hdc, left, top, right, bottom): »æÖÆÒ»¸ö¾ØÐÎ¡£
 »æÖÆÔ²ÐÎ£º
-
 Ellipse(hdc, left, top, right, bottom): »æÖÆÒ»¸öÍÖÔ²»òÔ²ÐÎ¡£
 »æÖÆ¶à±ßÐÎ£º
-
 Polygon(hdc, points, numPoints): »æÖÆÒ»¸ö¶à±ßÐÎ£¬pointsÎªÒ»¸öPOINT½á¹¹Êý×é£¬numPointsÎªµãµÄÊýÁ¿¡£
 »æÖÆ»¡Ïß£º
-
 Arc(hdc, left, top, right, bottom, xStart, yStart, xEnd, yEnd): »æÖÆÒ»¸ö»¡Ïß¡£
 »æÖÆ±´Èû¶ûÇúÏß£º
-
 PolyBezier(hdc, points, numPoints): »æÖÆÒ»Ìõ±´Èû¶ûÇúÏß£¬pointsÎªÒ»¸öPOINT½á¹¹Êý×é£¬numPointsÎªµãµÄÊýÁ¿¡£
 ÕâÐ©º¯Êý¿ÉÒÔÔÚWM_PAINTÏûÏ¢ÖÐÊ¹ÓÃ£¬Í¨¹ý»ñÈ¡Éè±¸ÉÏÏÂÎÄ£¨HDC£©²¢µ÷ÓÃÏàÓ¦µÄ»æÍ¼º¯ÊýÀ´»æÖÆËùÐèµÄÍ¼ÐÎºÍÏßÌõ¡£Äú¿ÉÒÔ¸ù¾ÝÐèÒªÑ¡ÔñºÏÊÊµÄº¯ÊýÀ´»æÖÆ²»Í¬µÄÍ¼ÐÎ¡£
 
 ÏÂÃæÊÇÒ»Ð©³£ÓÃµÄÉèÖÃÑÕÉ«µÄº¯Êý£º
 
 ÉèÖÃÎÄ±¾ÑÕÉ«£º
-
 SetTextColor(hdc, RGB(r, g, b)): ÉèÖÃÎÄ±¾µÄÑÕÉ«ÎªRGB(r, g, b)¡£
 ÉèÖÃ±³¾°ÑÕÉ«£º
-
 SetBkColor(hdc, RGB(r, g, b)): ÉèÖÃ±³¾°µÄÑÕÉ«ÎªRGB(r, g, b)¡£
 ÉèÖÃ»­±ÊÑÕÉ«£º
-
 SetDCPenColor(hdc, RGB(r, g, b)): ÉèÖÃ»­±ÊµÄÑÕÉ«ÎªRGB(r, g, b)¡£
 ÉèÖÃË¢×ÓÑÕÉ«£º
-
 SetDCBrushColor(hdc, RGB(r, g, b)): ÉèÖÃË¢×ÓµÄÑÕÉ«ÎªRGB(r, g, b)¡£
 ÕâÐ©º¯Êý¿ÉÒÔÔÚ»æÖÆÍ¼ÐÎÖ®Ç°µ÷ÓÃ£¬ÒÔÉèÖÃËù»æÖÆÍ¼ÐÎµÄÑÕÉ«¡£RGB(r, g, b)º¯ÊýÓÃÓÚ´´½¨RGBÑÕÉ«Öµ£¬ÆäÖÐr¡¢g¡¢b·Ö±ð±íÊ¾ºìÉ«¡¢ÂÌÉ«ºÍÀ¶É«µÄÖµ£¨0-255Ö®¼ä£©¡£
 
