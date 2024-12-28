@@ -1,2 +1,6 @@
 # Folders
 ./temp
+./build
+./dist
+.DS_Store
+./.vscode
