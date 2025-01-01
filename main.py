@@ -1,6 +1,8 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
+import ui
+
 
 class WelcomeWindow(tk.Toplevel):
 
@@ -39,7 +41,7 @@ class WelcomeWindow(tk.Toplevel):
 
 class GradientWindow(tk.Tk):
 
-    version = 1.0
+    version = 1.1
 
     def __init__(self):
         super().__init__()
@@ -72,14 +74,6 @@ class GradientWindow(tk.Tk):
             "文件",
             "更多"
         ]
-        self.label_cmds = [
-            self._about,
-            None,
-            None,
-            None,
-            None,
-            None
-        ]
         self.colors = [
             "#ff0000",
             "#ff0000",
@@ -88,8 +82,17 @@ class GradientWindow(tk.Tk):
             "#ffa500",
             "#ffd700"
         ]
+        self.left_panel_frames = []
+        self.current_frame = None
+        self.panels = [
+            self.system,
+            self.network,
+            self.storage,
+            self.file,
+            self.more
+        ]
 
-        self.left_panel = tk.Frame(self, highlightthickness=0, bg="white")
+        self.left_panel = tk.Canvas(self, highlightthickness=0, bg="white")
         self.left_panel.pack(fill="both", side="left", expand=1)
         self.right_panel = tk.Canvas(self, highlightthickness=0, bg="white")
         self.right_panel.pack(fill="both", side="right", expand=1)
@@ -107,35 +110,59 @@ class GradientWindow(tk.Tk):
             self.after(16, self._fade_in)
 
     def _left_panel(self):
-        # Logo Image
-        tk.Label(self.left_panel, image=self.logo,
-                 bg="white").pack(side="top", pady=20)
-        tk.Label(self.left_panel, text="537工具箱",
-                 font=("TkDefaultFont", 20), bg="white").pack()
-        # Three Icons
-        icons_frame = tk.Frame(
-            self.left_panel, highlightthickness=0, bg="white")
-        icons_frame.pack(side="bottom", pady=50)
-        for i in range(1, 4):
-            self.icons.append(ImageTk.PhotoImage(
-                Image.open(f"images/icon{i}.png").resize((40, 40))))
-            now_icon = tk.Label(icons_frame, image=self.icons[i-1], bg="white")
-            now_icon.bind("<Button-1>", lambda _event,
-                          index=i - 1: self.icon_cmds[index]())
-            now_icon.pack(side="left", padx=10, expand=1)
+        for num in range(1, 8):
+            if num == 1:
+                frame = tk.Frame(self.left_panel, highlightthickness=0, bg="white")
+                frame_id = self.left_panel.create_window(self.left_panel.winfo_reqwidth()/2, 175, window=frame)
+                self.left_panel_frames.append(frame_id)
+                self.current_frame = 0
+
+                # Logo Image
+                tk.Label(frame, image=self.logo, bg="white").pack(side="top", pady=20)
+                tk.Label(frame, text="537 工具箱", font=("TkDefaultFont", 20), bg="white").pack()
+
+                # Icons Section
+                icons_frame = tk.Frame(frame, highlightthickness=0, bg="white")
+                icons_frame.pack(side="bottom", pady=50)
+
+                # Loop to create icons
+                for i in range(1, 4):
+                    icon = ImageTk.PhotoImage(Image.open(f"images/icon{i}.png").resize((40, 40)))
+                    self.icons.append(icon)
+
+                    icon_label = tk.Label(icons_frame, image=icon, bg="white")
+                    icon_label.bind("<Button-1>", lambda event, index=i-1: self.icon_cmds[index]())
+                    icon_label.pack(side="left", padx=10, expand=1)
+
+            else:
+                frame = tk.Frame(self.left_panel, highlightthickness=0, bg="white")
+                if (num - 2) < 5:
+                    self.panels[num-2](frame)
+                frame_id = self.left_panel.create_window(self.left_panel.winfo_reqwidth()/2, 175, window=frame)
+                self.left_panel_frames.append(frame_id)
+                self.left_panel.itemconfigure(frame_id, state="hidden")
+
+        self.left_panel.lift(self.left_panel_frames[0])
 
     def _right_panel(self):
         for i in range(1, 7):
-            now_label = tk.Label(self.right_panel, bg=self.colors[i-1], fg="white", font=(
-                "TkDefaultFont", 22), text=self.label_texts[i-1], anchor="w", padx=20)
-            now_label.bind("<Enter>", lambda _event, index=i -
-                           1: self._label_enter(index))
-            now_label.bind("<Leave>", lambda _event, index=i -
-                           1: self._label_leave(index))
-            now_label.bind("<Button-1>", lambda _event, index=i -
-                           1: self.label_cmds[index]())
+            now_label = tk.Label(self.right_panel, bg=self.colors[i-1], fg="white", font=("TkDefaultFont", 22),
+                                text=self.label_texts[i-1], anchor="w", padx=20)
+
+            now_label.bind("<Enter>", lambda _event, index=i-1: self._label_enter(index))
+            now_label.bind("<Leave>", lambda _event, index=i-1: self._label_leave(index))
+            now_label.bind("<Button-1>", lambda _event, index=i-1: self.panel(index))
+
             now_label.pack(side="top", fill="both", expand=1)
+
             self.label_objs.append(now_label)
+
+    def panel(self, index):
+        if self.current_frame is not None and self.current_frame != index:
+            self.left_panel.itemconfigure(self.left_panel_frames[self.current_frame], state="hidden")
+
+        self.left_panel.itemconfigure(self.left_panel_frames[index], state="normal")
+        self.current_frame = index
 
     def _label_enter(self, index):
         this = self.label_objs[index]
@@ -220,6 +247,21 @@ class GradientWindow(tk.Tk):
                 2 - toplevel.winfo_reqheight() / 2)
         toplevel.wm_geometry(f"+{x}+{y}")
 
+    def _error(self, title, text, btn):
+        icon = ImageTk.PhotoImage(Image.open(
+            "images/error.png").resize((64, 64)))
+        ui.MessageBox(self, title, [text, btn], icon)
+
+    def system(self, frame):
+        tk.Label(frame, text="系统", bg="white").pack()
+    def network(self, frame):
+        tk.Label(frame, text="网络", bg="white").pack()
+    def storage(self, frame):
+        tk.Label(frame, text="存储", bg="white").pack()
+    def file(self, frame):
+        tk.Label(frame, text="文件", bg="white").pack()
+    def more(self, frame):
+        tk.Label(frame, text="更多", bg="white").pack()
 
 if __name__ == "__main__":
     root = GradientWindow()

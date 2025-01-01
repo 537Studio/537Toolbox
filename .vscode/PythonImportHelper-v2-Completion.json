@@ -1,5 +1,47 @@
 [
     {
+        "label": "tkinter",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageTk",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageTk",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ui",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ui",
+        "description": "ui",
+        "detail": "ui",
+        "documentation": {}
+    },
+    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
@@ -97,126 +139,129 @@
         "documentation": {}
     },
     {
-        "label": "threading",
+        "label": "typing",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "threading",
-        "description": "threading",
-        "detail": "threading",
+        "importPath": "typing",
+        "description": "typing",
+        "detail": "typing",
         "documentation": {}
     },
     {
-        "label": "time",
+        "label": "platform",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "time",
-        "description": "time",
-        "detail": "time",
+        "importPath": "platform",
+        "description": "platform",
+        "detail": "platform",
         "documentation": {}
     },
     {
-        "label": "playsound",
-        "importPath": "playsound",
-        "description": "playsound",
-        "isExtraImport": true,
-        "detail": "playsound",
-        "documentation": {}
-    },
-    {
-        "label": "tkinter",
+        "label": "random",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "tkinter",
-        "description": "tkinter",
-        "detail": "tkinter",
-        "documentation": {}
-    },
-    {
-        "label": "Image",
-        "importPath": "PIL",
-        "description": "PIL",
-        "isExtraImport": true,
-        "detail": "PIL",
-        "documentation": {}
-    },
-    {
-        "label": "ImageTk",
-        "importPath": "PIL",
-        "description": "PIL",
-        "isExtraImport": true,
-        "detail": "PIL",
-        "documentation": {}
-    },
-    {
-        "label": "GradientWindow",
-        "kind": 6,
-        "importPath": "537main",
-        "description": "537main",
-        "peekOfCode": "class GradientWindow(QWidget):\n    def __init__(self):\n        super().__init__()\n        self.setWindowTitle('/(ㄒoㄒ)/~~')\n        # 主布局，水平布局\n        main_layout = QHBoxLayout()\n        main_layout.setSpacing(0)  # 无间距\n        main_layout.setContentsMargins(0, 0, 0, 0)  # 无外边距\n        # 添加左侧空白页面\n        self.create_left_panel(main_layout)",
-        "detail": "537main",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "kind": 5,
-        "importPath": "537main",
-        "description": "537main",
-        "peekOfCode": "app = QApplication(sys.argv)\nwindow = GradientWindow()\nwindow.show()\nsys.exit(app.exec_())",
-        "detail": "537main",
-        "documentation": {}
-    },
-    {
-        "label": "window",
-        "kind": 5,
-        "importPath": "537main",
-        "description": "537main",
-        "peekOfCode": "window = GradientWindow()\nwindow.show()\nsys.exit(app.exec_())",
-        "detail": "537main",
-        "documentation": {}
-    },
-    {
-        "label": "play_audio",
-        "kind": 2,
-        "importPath": "a",
-        "description": "a",
-        "peekOfCode": "def play_audio(audio_file):\n    playsound(audio_file)\naudio_file = 'audio/537Welcome.mp3'\naudio_thread = threading.Thread(target=play_audio, args=(audio_file,))\naudio_thread.start()\naudio_thread.join()",
-        "detail": "a",
-        "documentation": {}
-    },
-    {
-        "label": "audio_file",
-        "kind": 5,
-        "importPath": "a",
-        "description": "a",
-        "peekOfCode": "audio_file = 'audio/537Welcome.mp3'\naudio_thread = threading.Thread(target=play_audio, args=(audio_file,))\naudio_thread.start()\naudio_thread.join()",
-        "detail": "a",
-        "documentation": {}
-    },
-    {
-        "label": "audio_thread",
-        "kind": 5,
-        "importPath": "a",
-        "description": "a",
-        "peekOfCode": "audio_thread = threading.Thread(target=play_audio, args=(audio_file,))\naudio_thread.start()\naudio_thread.join()",
-        "detail": "a",
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
         "documentation": {}
     },
     {
         "label": "WelcomeWindow",
         "kind": 6,
-        "importPath": "tkmain",
-        "description": "tkmain",
+        "importPath": "main",
+        "description": "main",
         "peekOfCode": "class WelcomeWindow(tk.Toplevel):\n    def __init__(self, master: tk.Tk):\n        super().__init__(master)\n        self.wm_overrideredirect(True)\n        x = (self.winfo_screenwidth() // 2) - 256\n        y = (self.winfo_screenheight() // 2) - 128\n        self.wm_geometry(f'512x256+{x}+{y}')\n        self.wm_attributes(\"-topmost\", True)\n        self.configure(bg=\"#1e90ff\")\n        tk.Label(self, text=\"537 工具箱\", bg=\"#1e90ff\", fg=\"white\",",
-        "detail": "tkmain",
+        "detail": "main",
         "documentation": {}
     },
     {
         "label": "GradientWindow",
         "kind": 6,
-        "importPath": "tkmain",
-        "description": "tkmain",
-        "peekOfCode": "class GradientWindow(tk.Tk):\n    version = 1.0\n    def __init__(self):\n        super().__init__()\n        # Base attribtues setup\n        self.wm_geometry(\"600x350+100+100\")\n        self.wm_title(\"/(ㄒoㄒ)/~~\")\n        self.focus_force()\n        self.wm_attributes(\"-alpha\", 0)\n        self.welcome = WelcomeWindow(self)",
-        "detail": "tkmain",
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class GradientWindow(tk.Tk):\n    version = 1.1\n    def __init__(self):\n        super().__init__()\n        # Base attribtues setup\n        self.wm_geometry(\"600x350+100+100\")\n        self.wm_title(\"/(ㄒoㄒ)/~~\")\n        self.focus_force()\n        self.wm_attributes(\"-alpha\", 0)\n        self.welcome = WelcomeWindow(self)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "GradientWindow",
+        "kind": 6,
+        "importPath": "qt",
+        "description": "qt",
+        "peekOfCode": "class GradientWindow(QWidget):\n    def __init__(self):\n        super().__init__()\n        self.setWindowTitle('/(ㄒoㄒ)/~~')\n        # 主布局，水平布局\n        main_layout = QHBoxLayout()\n        main_layout.setSpacing(0)  # 无间距\n        main_layout.setContentsMargins(0, 0, 0, 0)  # 无外边距\n        # 添加左侧空白页面\n        self.create_left_panel(main_layout)",
+        "detail": "qt",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "qt",
+        "description": "qt",
+        "peekOfCode": "app = QApplication(sys.argv)\nwindow = GradientWindow()\nwindow.show()\nsys.exit(app.exec_())",
+        "detail": "qt",
+        "documentation": {}
+    },
+    {
+        "label": "window",
+        "kind": 5,
+        "importPath": "qt",
+        "description": "qt",
+        "peekOfCode": "window = GradientWindow()\nwindow.show()\nsys.exit(app.exec_())",
+        "detail": "qt",
+        "documentation": {}
+    },
+    {
+        "label": "BaseGraphics",
+        "kind": 6,
+        "importPath": "ui",
+        "description": "ui",
+        "peekOfCode": "class BaseGraphics:\n    def __init__(self) -> None:\n        self.canvasId = ...\nclass PerfectCircle(BaseGraphics):\n    def __init__(self, master: tk.Canvas, position: tuple[int | float, int | float],\n                 radius: int | float, bg: str) -> None:\n        super().__init__()\n        self.master = master\n        self.fill = bg\n        self.x = position[0]",
+        "detail": "ui",
+        "documentation": {}
+    },
+    {
+        "label": "PerfectCircle",
+        "kind": 6,
+        "importPath": "ui",
+        "description": "ui",
+        "peekOfCode": "class PerfectCircle(BaseGraphics):\n    def __init__(self, master: tk.Canvas, position: tuple[int | float, int | float],\n                 radius: int | float, bg: str) -> None:\n        super().__init__()\n        self.master = master\n        self.fill = bg\n        self.x = position[0]\n        self.y = position[1]\n        self.radius = radius\n        self.diameter = self.radius * 2",
+        "detail": "ui",
+        "documentation": {}
+    },
+    {
+        "label": "Rectangle",
+        "kind": 6,
+        "importPath": "ui",
+        "description": "ui",
+        "peekOfCode": "class Rectangle(BaseGraphics):\n    def __init__(self, master: tk.Canvas, position: tuple[int | float, int | float],\n                 size: tuple[int | float, int | float], bg: str) -> None:\n        super().__init__()\n        self.master = master\n        self.fill = bg\n        self.x = position[0]\n        self.y = position[1]\n        self.width = size[0]\n        self.height = size[1]",
+        "detail": "ui",
+        "documentation": {}
+    },
+    {
+        "label": "RoundedRectangle",
+        "kind": 6,
+        "importPath": "ui",
+        "description": "ui",
+        "peekOfCode": "class RoundedRectangle(BaseGraphics):\n    def __init__(self, master: tk.Canvas, position: tuple[int | float, int | float],\n                 size: tuple[int | float, int | float], radius: int | float, bg: str, bd: str | None = None) -> None:\n        super().__init__()\n        self.master = master\n        self.fill = bg\n        if not bd:\n            self.outline = bd\n        else:\n            self.outline = self.fill",
+        "detail": "ui",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "kind": 6,
+        "importPath": "ui",
+        "description": "ui",
+        "peekOfCode": "class Text(BaseGraphics):\n    def __init__(self, master: tk.Canvas, position: tuple[int | float, int | float],\n                 text: str, fg: str, *, placemode: typing.Literal['normal', 'usable'] = 'usable') -> None:\n        super().__init__()\n        self.master = master\n        self.fill = fg\n        self.placemode = placemode\n        self.x = position[0]\n        self.y = position[1]\n        self.text = text",
+        "detail": "ui",
+        "documentation": {}
+    },
+    {
+        "label": "MessageBox",
+        "kind": 6,
+        "importPath": "ui",
+        "description": "ui",
+        "peekOfCode": "class MessageBox(tk.Toplevel):\n    def __init__(self, master: tk.Tk, title: str, text: tuple[str,], image: ImageTk.PhotoImage):\n        super().__init__(master)\n        self.wm_geometry(f\"260x230+{int((self.winfo_screenwidth()-260)/2)}+{\n                         int((self.winfo_screenheight()-240)/2)}\")\n        self.wm_overrideredirect(True)\n        self.wm_attributes('-topmost', True)\n        self.focus_force()\n        self.canvas = tk.Canvas(\n            self, highlightthickness=False)",
+        "detail": "ui",
         "documentation": {}
     }
 ]
