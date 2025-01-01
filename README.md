@@ -16,8 +16,10 @@ tools：用于存放其它小工具
 
 fonts：用于存放TrueType字体文件
 
-include：一些需要使用的头文件
+images: 用于存放图像文件
+
+audio: 用于存放音频文件
 
 #### 开发环境
 
-Python 3.8.1
+Python 3.8.1 / Python 3.12.4
